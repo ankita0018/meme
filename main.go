@@ -102,7 +102,7 @@ func (rl *rateLimiter) allow(ip string) bool {
 	defer rl.mu.Unlock()
 
 	now := time.Now()
-	cutoff := now.Add(-time.Hour)
+	cutoff := now.Add(-2 * time.Minute)
 
 	var recent []time.Time
 	for _, t := range rl.clients[ip] {
