@@ -176,6 +176,7 @@ func handleMeme(client anthropic.Client, rl *rateLimiter) http.HandlerFunc {
 			writeJSON(w, http.StatusBadRequest, memeResponse{Error: "Prompt is required"})
 			return
 		}
+		log.Printf("meme request from %s: %q", clientIP(r), req.Prompt)
 
 		choice, err := askClaude(r.Context(), client, req.Prompt)
 		if err != nil {
