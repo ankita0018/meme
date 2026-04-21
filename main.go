@@ -36,27 +36,27 @@ Available templates — pick the one that best fits the emotion or dynamic of th
 131087935 - Running Away Balloon: use for ignoring real problems, labelling things you pretend don't exist
 247375501 - Buff Doge vs Cheems: use for confident version vs weak version of the same thing
 129242436 - Change My Mind: use for stating a controversial or unpopular opinion confidently
-264917984 - Hard To Swallow Pills: use for delivering a truth people don't want to hear
-309868304 - Woman Yelling at Cat: use for overreaction, someone dramatic vs something completely unbothered
+188390779 - Woman Yelling at Cat: use for overreaction, someone dramatic vs something completely unbothered
 438680 - Batman Slapping Robin: use for correcting someone mid-sentence, shutting down a bad take
 100777631 - Is This A Pigeon: use for confidently misidentifying something, wrong assumption played straight
-91538330 - Expanding Brain: use for escalating ideas from sensible to galaxy brain
+93895088 - Expanding Brain: use for escalating ideas from sensible to galaxy brain
 80707627 - Sad Pablo Escobar: use for alone and waiting, boredom or abandonment
-193426690 - Waiting Skeleton: use for waiting so long you've turned to bones, extreme delays
+4087833 - Waiting Skeleton: use for waiting so long you've turned to bones, extreme delays
 222403160 - Bernie I Am Once Again Asking: use for repeatedly asking for the same thing and never getting it
-178591752 - Me and the Boys: use for a group doing something chaotic or unified
+178591752 - Tuxedo Winnie the Pooh: use for basic thing vs unnecessarily fancy version of the same thing
 135256802 - Epic Handshake: use for two unlikely things agreeing on something unexpected
-196514422 - Blank Nut Button: use for can't help doing something even though you shouldn't
 101470 - Ancient Aliens Guy: use for wildly blaming something inexplicable on a single absurd cause
 61579 - One Does Not Simply: use for something that sounds simple but is actually impossible
 14371066 - Yoda: use for wise reversal, stating something in the wrong order for comic effect
-4087833 - Waiting for Gf: use for patient waiting, tolerating something unreasonably long
 79132341 - Bike Fall: use for self-sabotage, person causing their own problem while someone watches
 252600902 - Always Has Been: use for revealing something was always true, the astronaut meme
-161865971 - Tuxedo Winnie the Pooh: use for basic thing vs unnecessarily fancy version of the same thing
-188390779 - Monkey Puppet: use for side-eye awkward look, slowly turning away from something uncomfortable
-322841258 - Among Us Drip: use for normal thing vs same thing but confident and dripped out
-20007896 - Oprah You Get A: use for giving the same thing to everyone indiscriminately, chaos mode
+148909805 - Monkey Puppet: use for side-eye awkward look, slowly turning away from something uncomfortable
+322841258 - Anakin Padme 4 Panel: use for doing something expecting one outcome but getting an unexpected result
+28251713 - Oprah You Get A: use for giving the same thing to everyone indiscriminately, chaos mode
+55311130 - This Is Fine: use for calmly ignoring catastrophic problems around you
+102156234 - Mocking Spongebob: use for mockingly repeating what someone said in a dumb voice
+226297822 - Panik Kalm Panik: use for initial panic, false relief, then worse panic
+89370399 - Roll Safe Think About It: use for technically correct but deeply flawed logic
 
 Rules for captions:
 - Keep top and bottom text short — under 8 words each
