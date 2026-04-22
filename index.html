@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>blurtit.lol</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -163,6 +164,21 @@
 
     .btn-secondary:hover { background: #222; }
 
+    .btn-share {
+      flex: 1;
+      padding: 12px;
+      background: #1a1a1a;
+      color: #FFD700;
+      border: 1px solid #3a3a1a;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-share:hover { background: #222; }
+
     .btn-download {
       flex: 1;
       padding: 12px;
@@ -177,6 +193,223 @@
     }
 
     .btn-download:hover { background: #f0cb00; }
+
+    #copy-toast {
+      display: none;
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      pointer-events: none;
+    }
+
+    #copy-toast.show { display: block; }
+
+    #paywall-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    #paywall-overlay.show { display: flex; }
+
+    .paywall-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .paywall-card h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #e8e8e8;
+      margin-bottom: 8px;
+    }
+
+    .paywall-card p {
+      color: #666;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .paywall-card p span {
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    .btn-google {
+      width: 100%;
+      padding: 13px 20px;
+      background: #fff;
+      color: #111;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      transition: background 0.15s;
+    }
+
+    .btn-google:hover { background: #f0f0f0; }
+
+    .btn-buycredits {
+      width: 100%;
+      padding: 13px 20px;
+      background: #FFD700;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-bottom: 12px;
+    }
+
+    .btn-buycredits:hover { background: #f0cb00; }
+
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pack-option {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 12px 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.15s;
+    }
+
+    .pack-option:hover { border-color: #FFD700; }
+    .pack-option.selected { border-color: #FFD700; background: #1a1a00; }
+
+    .pack-option .pack-price {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #FFD700;
+    }
+
+    .pack-option .pack-memes {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 2px;
+    }
+
+    .pack-option .pack-best {
+      font-size: 0.65rem;
+      background: #FFD700;
+      color: #000;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .paywall-dismiss {
+      background: none;
+      border: none;
+      color: #444;
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .paywall-dismiss:hover { color: #666; }
+
+    #user-bar {
+      display: none;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    #user-bar.show { display: flex; }
+
+    #user-bar .credits-badge {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 4px 12px;
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    #user-bar .logout-btn {
+      background: none;
+      border: none;
+      color: #444;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0;
+    }
+
+    #user-bar .logout-btn:hover { color: #666; }
+
+    #feedback-section {
+      width: 100%;
+      max-width: 600px;
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    #feedback-section h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    #feedback-form textarea {
+      margin-bottom: 10px;
+    }
+
+    #feedback-success {
+      display: none;
+      color: #555;
+      font-size: 0.875rem;
+      padding: 12px 0;
+    }
+
+    #feedback-success.show { display: block; }
+
+    #feedback-error {
+      display: none;
+      color: #f87171;
+      font-size: 0.8rem;
+      margin-top: 8px;
+    }
+
+    #feedback-error.show { display: block; }
 
     .watermark {
       position: fixed;
@@ -199,6 +432,12 @@
 </head>
 <body>
   <div class="container">
+
+    <div id="user-bar">
+      <span id="user-name"></span>
+      <span class="credits-badge"><span id="user-credits">0</span> memes left</span>
+      <button class="logout-btn" onclick="logout()">Sign out</button>
+    </div>
 
     <header>
       <h1>blurtit.lol</h1>
@@ -223,13 +462,65 @@
       <img id="meme-img" src="" alt="Generated meme" />
       <div class="result-actions">
         <button class="btn-secondary" onclick="generate()">Try Again</button>
+        <button class="btn-share" onclick="shareMeme()">Share</button>
         <button class="btn-download" onclick="downloadMeme()">Download</button>
       </div>
     </div>
 
   </div>
 
+  <div id="paywall-overlay">
+    <div class="paywall-card" id="paywall-card-free">
+      <h2>You've used your 3 free memes</h2>
+      <p>Sign in with Google and get <span>7 more memes free.</span><br>No payment needed.</p>
+      <button class="btn-google" onclick="googleSignIn()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 6.293C4.672 4.166 6.656 3.58 9 3.58z"/></svg>
+        Continue with Google — 7 free memes
+      </button>
+      <button class="btn-buycredits" onclick="showPackPicker()">Buy a pack from ₹9</button>
+      <button class="paywall-dismiss" onclick="closePaywall()">Maybe later</button>
+    </div>
+
+    <div class="paywall-card" id="paywall-card-packs" style="display:none">
+      <h2>Pick a pack</h2>
+      <p>One-time purchase. Credits don't expire.</p>
+      <div class="pack-grid">
+        <div class="pack-option" id="pack-starter" onclick="selectPack('starter')">
+          <div class="pack-price">₹9</div>
+          <div class="pack-memes">10 memes</div>
+        </div>
+        <div class="pack-option selected" id="pack-popular" onclick="selectPack('popular')">
+          <div class="pack-best">POPULAR</div>
+          <div class="pack-price">₹19</div>
+          <div class="pack-memes">25 memes</div>
+        </div>
+        <div class="pack-option" id="pack-stash" onclick="selectPack('stash')">
+          <div class="pack-price">₹49</div>
+          <div class="pack-memes">75 memes</div>
+        </div>
+      </div>
+      <button class="btn-buycredits" id="btn-pay" onclick="startPayment()">Pay ₹19</button>
+      <button class="paywall-dismiss" id="btn-back" onclick="showFreeCard()">← Back</button>
+    </div>
+  </div>
+
+  <div id="feedback-section">
+    <h2>Got feedback?</h2>
+    <div id="feedback-form">
+      <textarea
+        id="feedback-text"
+        rows="3"
+        maxlength="1000"
+        placeholder="What's working, what's broken, what would make this better…"
+      ></textarea>
+      <button class="btn-secondary" onclick="submitFeedback()">Send feedback</button>
+      <div id="feedback-error"></div>
+    </div>
+    <div id="feedback-success">Thanks — feedback received.</div>
+  </div>
+
   <div class="watermark">blurtit.lol</div>
+  <div id="copy-toast">Link copied!</div>
 
   <script>
     const examples = [
@@ -256,6 +547,26 @@
 
     let currentMemeUrl = '';
 
+    const sharedMeme = new URLSearchParams(window.location.search).get('meme');
+    if (sharedMeme && sharedMeme.startsWith('https://i.imgflip.com/')) {
+      currentMemeUrl = sharedMeme;
+      showMeme(sharedMeme);
+    }
+
+    async function loadMe() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        if (data.logged_in) {
+          document.getElementById('user-name').textContent = data.name.split(' ')[0];
+          document.getElementById('user-credits').textContent = data.credits;
+          document.getElementById('user-bar').classList.add('show');
+        }
+      } catch (_) {}
+    }
+
+    loadMe();
+
     async function generate() {
       const prompt = promptEl.value.trim();
       if (!prompt) {
@@ -276,12 +587,20 @@
 
         const data = await res.json();
 
+        if (res.status === 402) {
+          showPaywall();
+          return;
+        }
+
         if (!res.ok || data.error) {
           throw new Error(data.error || `Error ${res.status}`);
         }
 
         currentMemeUrl = data.meme_url;
         showMeme(data.meme_url);
+        if (data.credits_left != null) {
+          document.getElementById('user-credits').textContent = data.credits_left;
+        }
       } catch (err) {
         showError(err.message || 'Meme machine broke. Try again.');
       } finally {
@@ -292,6 +611,19 @@
     function downloadMeme() {
       if (!currentMemeUrl) return;
       window.location.href = '/api/download?url=' + encodeURIComponent(currentMemeUrl);
+    }
+
+    async function shareMeme() {
+      if (!currentMemeUrl) return;
+      const shareUrl = window.location.origin + '/?meme=' + encodeURIComponent(currentMemeUrl);
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: 'blurtit.lol', url: shareUrl });
+        } catch (_) {}
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        showToast('Link copied!');
+      }
     }
 
     function setLoading(on) {
@@ -331,6 +663,157 @@
     promptEl.addEventListener('keydown', e => {
       if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) generate();
     });
+
+    function showPaywall() {
+      const loggedIn = document.getElementById('user-bar').classList.contains('show');
+      if (loggedIn) {
+        document.getElementById('paywall-card-free').style.display = 'none';
+        document.getElementById('paywall-card-packs').style.display = 'block';
+        document.getElementById('btn-back').style.display = 'none';
+      } else {
+        document.getElementById('paywall-card-free').style.display = 'block';
+        document.getElementById('paywall-card-packs').style.display = 'none';
+        document.getElementById('btn-back').style.display = 'block';
+      }
+      document.getElementById('paywall-overlay').classList.add('show');
+    }
+
+    function closePaywall() {
+      document.getElementById('paywall-overlay').classList.remove('show');
+    }
+
+    function googleSignIn() {
+      window.location.href = '/auth/google';
+    }
+
+    async function logout() {
+      await fetch('/auth/logout', { method: 'POST' });
+      window.location.reload();
+    }
+
+    const packPrices = { starter: 9, popular: 19, stash: 49 };
+    let selectedPack = 'popular';
+
+    function showPackPicker() {
+      const u = document.getElementById('user-bar').classList.contains('show');
+      if (!u) {
+        googleSignIn(); // must be logged in to pay
+        return;
+      }
+      document.getElementById('paywall-card-free').style.display = 'none';
+      document.getElementById('paywall-card-packs').style.display = 'block';
+    }
+
+    function showFreeCard() {
+      document.getElementById('paywall-card-packs').style.display = 'none';
+      document.getElementById('paywall-card-free').style.display = 'block';
+    }
+
+    function selectPack(pack) {
+      selectedPack = pack;
+      document.querySelectorAll('.pack-option').forEach(el => el.classList.remove('selected'));
+      document.getElementById('pack-' + pack).classList.add('selected');
+      document.getElementById('btn-pay').textContent = 'Pay ₹' + packPrices[pack];
+    }
+
+    async function startPayment() {
+      const btn = document.getElementById('btn-pay');
+      btn.disabled = true;
+      btn.textContent = 'Creating order…';
+
+      try {
+        const res = await fetch('/api/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pack: selectedPack }),
+        });
+        const order = await res.json();
+        if (!res.ok) {
+          if (order.error === 'login_required') { googleSignIn(); return; }
+          throw new Error(order.error || 'Order failed');
+        }
+
+        const rzp = new Razorpay({
+          key: order.key_id,
+          amount: order.amount,
+          currency: 'INR',
+          name: 'blurtit.lol',
+          description: selectedPack + ' pack',
+          order_id: order.order_id,
+          prefill: { name: order.name, email: order.email },
+          theme: { color: '#FFD700' },
+          handler: async function(response) {
+            await verifyPayment(response, selectedPack);
+          },
+        });
+        rzp.open();
+      } catch (err) {
+        showToast(err.message || 'Payment failed');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Pay ₹' + packPrices[selectedPack];
+      }
+    }
+
+    async function verifyPayment(response, pack) {
+      try {
+        const res = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            order_id: response.razorpay_order_id,
+            payment_id: response.razorpay_payment_id,
+            signature: response.razorpay_signature,
+            pack,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Verification failed');
+        document.getElementById('user-credits').textContent = data.credits;
+        closePaywall();
+        showToast('Credits added! You have ' + data.credits + ' memes left.');
+      } catch (err) {
+        showToast('Payment received but verification failed — contact support.');
+      }
+    }
+
+    function buyCredits() {
+      showPackPicker();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('copy-toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); toast.textContent = 'Link copied!'; }, 2500);
+    }
+
+    async function submitFeedback() {
+      const msg = document.getElementById('feedback-text').value.trim();
+      const errEl = document.getElementById('feedback-error');
+      errEl.classList.remove('show');
+
+      if (!msg) {
+        errEl.textContent = 'Write something first.';
+        errEl.classList.add('show');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Failed');
+        document.getElementById('feedback-form').style.display = 'none';
+        document.getElementById('feedback-success').classList.add('show');
+      } catch (err) {
+        errEl.textContent = err.message || 'Something went wrong. Try again.';
+        errEl.classList.add('show');
+      }
+    }
   </script>
 </body>
 </html>
